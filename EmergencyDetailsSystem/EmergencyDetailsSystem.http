@@ -1,0 +1,6 @@
+@EmergencyDetailsSystem_HostAddress = http://localhost:5186
+
+GET {{EmergencyDetailsSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
