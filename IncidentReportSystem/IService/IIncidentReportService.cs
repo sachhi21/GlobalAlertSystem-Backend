@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainLayer;
+using System;
 
 public interface IIncidentReportService
 {

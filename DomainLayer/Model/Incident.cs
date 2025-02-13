@@ -6,6 +6,7 @@ namespace DomainLayer
     public class Incident : BaseEntity
     {
         public int Id { get; set; }
+        public string Title { get; set; }
         public DateTime Timestamp { get; set; }
         public string Description { get; set; }
         public string Severity { get; set; }
