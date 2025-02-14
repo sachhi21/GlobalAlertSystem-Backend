@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using WebAlertApi.IServices;
 using WebAlertApi.Models.Response;
+using WebAlertApi.Services;
 
 namespace WebAlertApi.Controllers
 {
@@ -10,22 +11,26 @@ namespace WebAlertApi.Controllers
     [ApiController]
     public class IncidentController : ControllerBase
     {
+        private readonly ILogger<IncidentController> _logger;
+
         private readonly IIncidentService _IncidentService;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IConfiguration _configuration;
-        public IncidentController( 
-            ApplicationDbContext applicationDbContext, IIncidentService IncidentService, IConfiguration configuration)
+        public IncidentController(
+            ApplicationDbContext applicationDbContext, IIncidentService IncidentService, IConfiguration configuration,ILogger<IncidentController> logger)
         {
             _applicationDbContext = applicationDbContext;
             _configuration = configuration;
             _IncidentService = IncidentService;
+            _logger = logger;
         }
 
-        [HttpGet(nameof(GetIncidentById))]
-        public async Task<IActionResult> GetIncidentById(int Id)
+        [HttpGet("GetIncidentById")]
+
+        public async Task<IActionResult> GetIncidentById(Guid Id)
         {
             APIResponse<Incident> response;
-
+            _logger.LogInformation("GetIncidentById");
             try
             {
                 var obj = await _IncidentService.Get(Id);
@@ -133,7 +138,6 @@ namespace WebAlertApi.Controllers
             }
             return Ok(response);
         }
-
 
     }
 }

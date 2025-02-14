@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var ConnectionString = builder.Configuration.GetConnectionString("portrecDBConnection");
+var ConnectionString = builder.Configuration.GetConnectionString("DBConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionString, d => d.MigrationsAssembly("QueueMessageSystem")));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -19,11 +19,10 @@ builder.Services.AddCors(options => { options.AddPolicy("AllowAll", builder => b
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 
 

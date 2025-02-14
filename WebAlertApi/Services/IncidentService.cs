@@ -1,12 +1,17 @@
-﻿using DomainLayer;
+﻿using Azure;
+using DomainLayer;
+using DomainLayer.Model;
 using RepositoryLayer.IRepository;
 using System.Linq.Expressions;
+using WebAlertApi.Controllers;
 using WebAlertApi.IServices;
+using WebAlertApi.Models.Response;
 
 namespace WebAlertApi.Services
 {
     public class IncidentService :  IIncidentService
     {
+
         private readonly IRepository _repository;
         private readonly ApplicationDbContext _applicationDbContext;
 
@@ -22,6 +27,7 @@ namespace WebAlertApi.Services
 
         public async Task<Incident?> Get<C>(C Id)
         {
+
             return await _repository.Get<C, Incident>(Id);
         }
 
@@ -31,12 +37,23 @@ namespace WebAlertApi.Services
         }
         public async Task Insert(Incident entity)
         {
-            await _repository.Insert<Incident>(entity);
+            try
+            {
+              
+                await _repository.Insert<Incident>(entity);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details
+                Console.WriteLine(ex.InnerException?.Message);
+            }
 
         }
 
         public async Task Remove(Incident entity)
         {
+            //await _repository.Remove<Location>(entity.Location);
+
             await _repository.Remove<Incident>(entity);
         }
 
