@@ -1,4 +1,5 @@
 ﻿using DomainLayer;
+using DomainLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using WebAlertApi.IServices;
@@ -63,10 +64,14 @@ namespace WebAlertApi.Controllers
         public async Task<IActionResult> InsertIncident(Incident entity)
         {
             APIResponse<Incident> response;
+            _logger.LogInformation("Adding Incident Report");
+
             try
             {
                 await _IncidentService.Insert(entity);
                 response = new APIResponse<Incident>(true, entity);
+                _logger.LogInformation(" Incident Report Added"+ response.Data.Id);
+
             }
             catch (Exception ex)
             {
@@ -138,6 +143,47 @@ namespace WebAlertApi.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost(nameof(InsertNaturalDaister))]
+        public async Task<IActionResult> InsertNaturalDaister(NaturalDisaster entity)
+        {
+            APIResponse<NaturalDisaster> response;
+            _logger.LogInformation("Adding Incident Report");
+
+            try
+            {
+                await _IncidentService.InsertDaister(entity);
+                response = new APIResponse<NaturalDisaster>(true, entity);
+                _logger.LogInformation(" Incident Report Added" + response.Data.Id);
+
+            }
+            catch (Exception ex)
+            {
+                response = new APIResponse<NaturalDisaster>(false, new string[] { ex.Message });
+            }
+            return Ok(response);
+        }
+
+        [HttpPost(nameof(InsertManMadeAccident))]
+        public async Task<IActionResult> InsertManMadeAccident(ManMadeIncident entity)
+        {
+            APIResponse<ManMadeIncident> response;
+            _logger.LogInformation("Adding Incident Report");
+
+            try
+            {
+                await _IncidentService.InsertManmadeAccident(entity);
+                response = new APIResponse<ManMadeIncident>(true, entity);
+                _logger.LogInformation(" Incident Report Added" + response.Data.Id);
+
+            }
+            catch (Exception ex)
+            {
+                response = new APIResponse<ManMadeIncident>(false, new string[] { ex.Message });
+            }
+            return Ok(response);
+        }
+
 
     }
 }

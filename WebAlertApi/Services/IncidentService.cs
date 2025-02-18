@@ -48,6 +48,22 @@ namespace WebAlertApi.Services
                 Console.WriteLine(ex.InnerException?.Message);
             }
 
+
+        }
+
+        public async Task InsertDaister(NaturalDisaster entity)
+        {
+            try
+            {
+
+                await _repository.Insert<NaturalDisaster>(entity);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details
+                Console.WriteLine(ex.InnerException?.Message);
+            }
+
         }
 
         public async Task Remove(Incident entity)
@@ -65,6 +81,19 @@ namespace WebAlertApi.Services
         public async Task<IEnumerable<Incident>> Search(Expression<Func<Incident, bool>> predicate)
         {
             return await _repository.Search(predicate);
+        }
+
+        public async Task InsertManmadeAccident(ManMadeIncident entity)
+        {
+            await _repository.Insert(entity);
+        }
+        public async Task InsertHealthIncident(HealthIncident entity)
+        {
+            await _repository.Insert(entity);
+        }
+        public async Task InsertCyberIncident(CybersecurityIncident entity)
+        {
+            await _repository.Insert(entity);
         }
     }
 }

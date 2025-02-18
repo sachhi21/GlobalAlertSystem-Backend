@@ -14,3 +14,4 @@ namespace DomainLayer.Model
         public int    EstimatedDamage { get; set; } // In USD
     }
 }
+

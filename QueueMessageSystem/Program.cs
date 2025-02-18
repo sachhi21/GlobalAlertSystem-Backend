@@ -2,6 +2,8 @@ using QueueMessageSystem.Model;
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.Options;
+using QueueMessageSystem.IServices;
+using QueueMessageSystem.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +17,7 @@ builder.Services.AddSwaggerGen();
 // Add services to the container.
 builder.Services.AddCors(options => { options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); });
 
-
+builder.Services.AddScoped<IQueueSystemServices,QueueSystemServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

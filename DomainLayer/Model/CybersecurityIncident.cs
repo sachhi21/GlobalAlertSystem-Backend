@@ -12,6 +12,6 @@ namespace DomainLayer.Model
         public string BreachType { get; set; } // E.g., "Data Leak", "DDoS Attack"
         public int AffectedSystems { get; set; }
         public int DataCompromised { get; set; } // In GB or Number of Records
-    
-}
+          
+    }
 }
