@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Global Alert System is a real-time emergency alerting platform that detects and notifies users about critical incidents such as accidents, natural disasters, and security threats and provision for dynamic incident creation for custom industry. It leverages .NET microservices, Kafka for communication, Azure services for cloud infrastructure, and machine learning models for prediction and analysis.
+The Global Alert System is a real-time emergency alerting platform that detects and notifies users about critical incidents such as accidents, natural disasters, and security threats and provision for custom dynamic incident creation for diffrent industry. It leverages .NET microservices, Kafka for communication, Azure services for cloud infrastructure, and machine learning models for prediction and analysis.
 
 ## Architecture
 
