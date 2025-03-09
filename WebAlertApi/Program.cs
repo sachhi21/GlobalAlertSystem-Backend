@@ -13,8 +13,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options => { options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); });
 builder.Services.AddScoped<IRepository, Repository>();
-var NlogPath = builder.Configuration.GetConnectionString("NlogConfigPath");
-LogManager.Configuration = new XmlLoggingConfiguration(NlogPath);
 builder.Services.AddScoped<IIncidentService, IncidentService> ();
 // Add services to the container.
 

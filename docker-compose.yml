@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  webalertapi:
+    build:
+      context: .
+      dockerfile: WebAlertApi/Dockerfile
+      target: runtime  # This uses the runtime stage for WebAlertApi
+    ports:
+      - "8080:8080"
+  
+  queuemessagesystem:
+    build:
+      context: .
+      dockerfile: QueueMessageSystem/Dockerfile
+      target: runtime  # This uses the runtime stage for QueueMessageSystem
+    ports:
+      - "8081:8080"

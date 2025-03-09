@@ -1,0 +1,25 @@
+# Ignore appsettings files
+WebAlertApi/appsettings.json
+WebAlertApi/appsettings.Development.json
+RepositoryLayer/appsettings.json
+RepositoryLayer/appsettings.Development.json
+
+# Ignore NLog.config files
+
+
+# Ignore bin and obj directories (which are generated during build)
+**/bin/
+**/obj/
+
+# Ignore unnecessary files or directories
+**/*.md
+**/*.git*
+**/.vscode
+**/.idea
+**/.DS_Store
+
+# Exclude IDE and config files, but NOT the Dockerfile
+**/.classpath
+**/.env
+**/.vs
+**/docker-compose*

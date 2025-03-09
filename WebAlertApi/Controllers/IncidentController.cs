@@ -12,18 +12,16 @@ namespace WebAlertApi.Controllers
     [ApiController]
     public class IncidentController : ControllerBase
     {
-        private readonly ILogger<IncidentController> _logger;
 
         private readonly IIncidentService _IncidentService;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IConfiguration _configuration;
         public IncidentController(
-            ApplicationDbContext applicationDbContext, IIncidentService IncidentService, IConfiguration configuration,ILogger<IncidentController> logger)
+            ApplicationDbContext applicationDbContext, IIncidentService IncidentService, IConfiguration configuration)
         {
             _applicationDbContext = applicationDbContext;
             _configuration = configuration;
             _IncidentService = IncidentService;
-            _logger = logger;
         }
 
         [HttpGet("GetIncidentById")]
@@ -31,7 +29,6 @@ namespace WebAlertApi.Controllers
         public async Task<IActionResult> GetIncidentById(Guid Id)
         {
             APIResponse<Incident> response;
-            _logger.LogInformation("GetIncidentById");
             try
             {
                 var obj = await _IncidentService.Get(Id);
@@ -64,13 +61,12 @@ namespace WebAlertApi.Controllers
         public async Task<IActionResult> InsertIncident(Incident entity)
         {
             APIResponse<Incident> response;
-            _logger.LogInformation("Adding Incident Report");
+
 
             try
             {
                 await _IncidentService.Insert(entity);
                 response = new APIResponse<Incident>(true, entity);
-                _logger.LogInformation(" Incident Report Added"+ response.Data.Id);
 
             }
             catch (Exception ex)
@@ -148,13 +144,11 @@ namespace WebAlertApi.Controllers
         public async Task<IActionResult> InsertNaturalDaister(NaturalDisaster entity)
         {
             APIResponse<NaturalDisaster> response;
-            _logger.LogInformation("Adding Incident Report");
 
             try
             {
                 await _IncidentService.InsertDaister(entity);
                 response = new APIResponse<NaturalDisaster>(true, entity);
-                _logger.LogInformation(" Incident Report Added" + response.Data.Id);
 
             }
             catch (Exception ex)
@@ -168,13 +162,11 @@ namespace WebAlertApi.Controllers
         public async Task<IActionResult> InsertManMadeAccident(ManMadeIncident entity)
         {
             APIResponse<ManMadeIncident> response;
-            _logger.LogInformation("Adding Incident Report");
 
             try
             {
                 await _IncidentService.InsertManmadeAccident(entity);
                 response = new APIResponse<ManMadeIncident>(true, entity);
-                _logger.LogInformation(" Incident Report Added" + response.Data.Id);
 
             }
             catch (Exception ex)
