@@ -1,0 +1,157 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-aks
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - host:
+    http:
+      paths:
+      - path: /portrec
+        pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 80
+      - path: /schedular
+        pathType: Prefix
+        backend:
+          service:
+            name: schedular
+            port:
+              number: 80
+      - path: /consumer
+        pathType: Prefix
+        backend:
+          service:
+            name: consumer
+            port:
+              number: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portrecapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portrecapi
+  template:
+    metadata:
+      labels:
+        app: portrecapi
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: portrecapi
+        image: portrecacrsandbox.azurecr.io/portrecapi:latest
+        ports:
+        - containerPort: 80
+          name: portrecapi
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 300m
+            memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portrecapi
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: portrecapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portrecschedular
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portrecschedular
+  template:
+    metadata:
+      labels:
+        app: portrecschedular
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: portrecschedular
+        image: portrecacrsandbox.azurecr.io/portrecschedular:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 300m
+            memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portrecschedular
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: portrecschedular
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portrecconsumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portrecconsumer
+  template:
+    metadata:
+      labels:
+        app: portrecconsumer
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: portrecconsumer
+        image: portrecacrsandbox.azurecr.io/portrecconsumer:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 300m
+            memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portrecconsumer
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: portrecconsumer
