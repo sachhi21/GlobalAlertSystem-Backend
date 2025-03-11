@@ -15,4 +15,4 @@ services:
       dockerfile: QueueMessageSystem/Dockerfile
       target: runtime  # This uses the runtime stage for QueueMessageSystem
     ports:
-      - "8081:8081"
+      - "8087:8087"
