@@ -32,6 +32,6 @@ WORKDIR /app
 # Copy the published files from the build stage
 COPY --from=publish /app/publish .
 
-EXPOSE 8081
+EXPOSE 8085
 
 ENTRYPOINT ["dotnet", "QueueMessageSystem.dll"]

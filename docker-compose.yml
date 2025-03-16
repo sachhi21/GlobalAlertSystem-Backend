@@ -7,7 +7,7 @@ services:
       dockerfile: WebAlertApi/Dockerfile
       target: runtime  # This uses the runtime stage for WebAlertApi
     ports:
-      - "8083:8083"
+      - "8084:8084"
   
   queuemessagesystem:
     build:
@@ -15,4 +15,4 @@ services:
       dockerfile: QueueMessageSystem/Dockerfile
       target: runtime  # This uses the runtime stage for QueueMessageSystem
     ports:
-      - "8087:8087"
+      - "8085:8085"
