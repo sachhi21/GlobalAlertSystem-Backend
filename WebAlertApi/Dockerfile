@@ -32,6 +32,6 @@ WORKDIR /app
 # Copy the published files from the build stage
 COPY --from=publish /app/publish .
 
-EXPOSE 8080
+EXPOSE 8084
 
 ENTRYPOINT ["dotnet", "WebAlertApi.dll"]
